@@ -1,0 +1,192 @@
+{
+  "models": {
+    "baseline": {
+      "rmse": 306.13,
+      "mae": 187.85,
+      "r2": 0.8824
+    },
+    "prophet": {
+      "rmse": 126.76,
+      "mae": 93.16,
+      "r2": 0.9798
+    },
+    "xgboost_tuned": {
+      "rmse": 98.65,
+      "mae": 68.3,
+      "r2": 0.9878
+    }
+  },
+  "improvements": {
+    "prophet_vs_baseline": 58.6,
+    "xgboost_vs_baseline": 67.8
+  },
+  "cross_validation": {
+    "folds": [
+      {
+        "fold": 1,
+        "train_size": 5571,
+        "val_size": 5571,
+        "rmse": 126.99052237642579,
+        "mae": 91.54589080810547,
+        "r2": 0.9431558847427368
+      },
+      {
+        "fold": 2,
+        "train_size": 11142,
+        "val_size": 5571,
+        "rmse": 322.11267923662984,
+        "mae": 184.93447875976562,
+        "r2": 0.9292592406272888
+      },
+      {
+        "fold": 3,
+        "train_size": 16713,
+        "val_size": 5571,
+        "rmse": 77.99152660806332,
+        "mae": 52.84016036987305,
+        "r2": 0.9611644744873047
+      }
+    ],
+    "mean_rmse": 175.7,
+    "std_rmse": 129.14,
+    "mean_mae": 109.77,
+    "mean_r2": 0.9445
+  },
+  "best_hyperparameters": {
+    "n_estimators": 150,
+    "max_depth": 5,
+    "learning_rate": 0.08,
+    "subsample": 0.9,
+    "colsample_bytree": 0.9
+  },
+  "tuning_results": [
+    {
+      "config": 1,
+      "rmse": 75.67362525076851,
+      "mae": 50.47734832763672,
+      "r2": 0.9634385108947754
+    },
+    {
+      "config": 2,
+      "rmse": 77.22685611034221,
+      "mae": 52.40436935424805,
+      "r2": 0.961922287940979
+    },
+    {
+      "config": 3,
+      "rmse": 82.51376542356432,
+      "mae": 56.27739715576172,
+      "r2": 0.9565302133560181
+    },
+    {
+      "config": 4,
+      "rmse": 74.04227703861153,
+      "mae": 50.02254867553711,
+      "r2": 0.9649978876113892
+    },
+    {
+      "config": 5,
+      "rmse": 79.97316139161155,
+      "mae": 54.17255783081055,
+      "r2": 0.9591659307479858
+    },
+    {
+      "config": 6,
+      "rmse": 75.70416504703523,
+      "mae": 51.17881774902344,
+      "r2": 0.9634090065956116
+    }
+  ],
+  "feature_importance": [
+    {
+      "feature": "sales_lag_7",
+      "importance": 0.3615906834602356
+    },
+    {
+      "feature": "sales_lag_28",
+      "importance": 0.35909512639045715
+    },
+    {
+      "feature": "sales_lag_14",
+      "importance": 0.14491702616214752
+    },
+    {
+      "feature": "sales_rolling_mean_7",
+      "importance": 0.08414191007614136
+    },
+    {
+      "feature": "snap_CA",
+      "importance": 0.009265567176043987
+    },
+    {
+      "feature": "is_weekend",
+      "importance": 0.005176530685275793
+    },
+    {
+      "feature": "is_national",
+      "importance": 0.00409253453835845
+    },
+    {
+      "feature": "week_of_month",
+      "importance": 0.004032961558550596
+    },
+    {
+      "feature": "day_of_week",
+      "importance": 0.0038942070677876472
+    },
+    {
+      "feature": "sales_rolling_mean_28",
+      "importance": 0.0032635864336043596
+    },
+    {
+      "feature": "is_cultural",
+      "importance": 0.003012297675013542
+    },
+    {
+      "feature": "month",
+      "importance": 0.002856057370081544
+    },
+    {
+      "feature": "has_event",
+      "importance": 0.002350303577259183
+    },
+    {
+      "feature": "store_num",
+      "importance": 0.0018430722411721945
+    },
+    {
+      "feature": "is_religious",
+      "importance": 0.0014916767831891775
+    }
+  ],
+  "error_analysis": {
+    "mean_residual": -16.08,
+    "std_residual": 97.48,
+    "by_store": {
+      "abs_error": {
+        "CA_1": 62.22,
+        "CA_2": 68.27,
+        "CA_3": 97.01,
+        "CA_4": 45.72
+      },
+      "pct_error": {
+        "CA_1": -5.1,
+        "CA_2": -0.45,
+        "CA_3": -6.38,
+        "CA_4": -5.06
+      }
+    },
+    "by_department": {
+      "abs_error": {
+        "FOODS_1": 43.6,
+        "FOODS_2": 49.04,
+        "FOODS_3": 112.28
+      },
+      "pct_error": {
+        "FOODS_1": -9.66,
+        "FOODS_2": -1.96,
+        "FOODS_3": -1.12
+      }
+    }
+  }
+}
