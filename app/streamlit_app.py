@@ -1,6 +1,6 @@
 """
-Retail Demand Forecasting Dashboard
-Interactive Streamlit application with REAL XGBoost model predictions
+Retail Demand Analytics Dashboard
+Interactive Streamlit application with real demand forecasting
 """
 import streamlit as st
 import pandas as pd
@@ -150,7 +150,7 @@ def load_xgb_model():
         model_path = app_dir.parent / 'outputs' / 'models' / 'xgboost_model.json'
 
         if not model_path.exists():
-            st.warning("⚠️ XGBoost model not found. Run 04_model_training.py first.")
+            st.warning("⚠️ Forecast model not found. Run 04_model_training.py first.")
             return None
 
         model = xgb.XGBRegressor()
@@ -228,13 +228,13 @@ def main():
 
     st.sidebar.success(f"✅ Data loaded: {len(df):,} rows")
     if model is not None:
-        st.sidebar.success("✅ XGBoost model loaded")
+        st.sidebar.success("✅ Forecast model loaded")
     else:
         st.sidebar.warning("⚠️ Using fallback predictions")
 
     st.sidebar.markdown("---")
     st.sidebar.markdown(
-        "**Built with** XGBoost, Prophet, SHAP, Streamlit"
+        "**Built with** Python, SQL, SHAP, Streamlit"
     )
 
     # Route pages
@@ -353,10 +353,10 @@ def show_overview(df, model):
     # Model performance (if model is loaded)
     if model is not None:
         st.markdown("---")
-        st.subheader("🤖 Model Performance (Real XGBoost)")
+        st.subheader("📊 Forecast Accuracy")
         col1, col2, col3, col4 = st.columns(4)
         with col1:
-            st.metric("Model", "XGBoost", "Global")
+            st.metric("Method", "Forecast", "Global")
         with col2:
             st.metric("RMSE", "84.87", "-72.3% vs baseline")
         with col3:
@@ -371,7 +371,7 @@ def show_forecast_explorer(df, model):
     st.markdown('<h1 class="main-header">🔮 Forecast Explorer</h1>', unsafe_allow_html=True)
 
     if model is not None:
-        st.success("✅ Using **real XGBoost model** predictions — not simulated data.")
+        st.success("✅ Using **trained forecast model** — real predictions, not simulated data.")
     else:
         st.warning("⚠️ Model not loaded. Showing fallback simulated predictions.")
 
@@ -453,7 +453,7 @@ def show_forecast_explorer(df, model):
     # Predicted sales
     fig.add_trace(go.Scatter(
         x=forecast_data['date'], y=forecast_data['prediction'],
-        mode='lines+markers', name='XGBoost Prediction',
+        mode='lines+markers', name='Forecast',
         line=dict(color='#dc2626', width=2, dash='dash'),
         marker=dict(size=6, symbol='diamond')
     ))
@@ -623,10 +623,10 @@ def show_recommendations(df, model):
     st.markdown('<h1 class="main-header">💼 Business Recommendations</h1>', unsafe_allow_html=True)
 
     # Model performance
-    st.subheader("🎯 Model Performance Summary")
+    st.subheader("🎯 Forecast Performance Summary")
     col1, col2, col3, col4 = st.columns(4)
     with col1:
-        st.metric("Model", "XGBoost", "Global")
+        st.metric("Method", "Forecast", "Global")
     with col2:
         st.metric("RMSE", "84.87", "-72.3% vs baseline")
     with col3:

@@ -1,31 +1,38 @@
-# 🏪 Retail Demand Forecasting at Scale
-## End-to-End ML System: From Raw Data to Interactive Dashboard
+# 📊 Retail Demand Analytics & Forecasting
+## End-to-End Analytics: From 10.9M Transactions to Actionable Business Insights
 
 [![Python](https://img.shields.io/badge/Python-3.9+-blue.svg)](https://www.python.org/)
-[![Streamlit](https://img.shields.io/badge/Streamlit-1.29+-red.svg)](https://streamlit.io/)
-[![XGBoost](https://img.shields.io/badge/XGBoost-2.0+-green.svg)](https://xgboost.readthedocs.io/)
+[![SQL](https://img.shields.io/badge/SQL-SQLite-orange.svg)]()
+[![Streamlit](https://img.shields.io/badge/Dashboard-Streamlit-red.svg)](https://streamlit.io/)
 [![Status](https://img.shields.io/badge/Status-Complete-success.svg)]()
 
-> **Production-ready demand forecasting system achieving 72.3% improvement over baseline, with interactive dashboard and comprehensive business recommendations.**
+> **Analyzed 10.9M retail transactions to uncover demand patterns, quantify promotional impact, and deliver a 4-page interactive dashboard — projecting $650K–$1M in annual savings through optimized inventory, staffing, and promotions.**
+
+🔗 **[Live Dashboard](https://retail-demand-forecasting-hariharan9597.streamlit.app/)** · 📄 **[Business Recommendations](outputs/BUSINESS_RECOMMENDATIONS.md)**
 
 ---
 
-## 🎯 Project Overview
+## 🎯 Business Problem
 
-Built a complete retail demand forecasting system using Walmart's M5 dataset, demonstrating end-to-end data science capabilities from data engineering to deployment.
+US retailers lose over **$300 billion annually** to inventory waste — overstocking ties up capital, understocking loses revenue. This project analyzes Walmart's California Foods division to:
 
-### Business Problem
-Inventory waste costs US retail over **$300 billion annually**. This project provides:
-- Accurate 28-day demand forecasts
-- 95.8% prediction interval coverage
-- Actionable recommendations for inventory, staffing, and promotions
-- **Expected impact**: $650K-$1M annual savings per region
+- Quantify the impact of **SNAP benefits**, **weekends**, and **events** on demand
+- Build 28-day demand forecasts with 95% confidence intervals
+- Deliver actionable recommendations for **inventory, staffing, and promotions**
+- Enable store managers to make data-driven stocking decisions via an interactive dashboard
 
-### Key Results
-- **Model Performance**: 72.3% improvement over baseline (RMSE: 84.87)
-- **SNAP Impact**: +10.3% sales lift quantified
-- **Weekend Effect**: +32.7% sales lift identified
-- **Intermittent Demand**: 66.9% of products handled appropriately
+---
+
+## 📈 Key Findings
+
+| Insight | Value | Business Action |
+|---------|-------|-----------------|
+| **SNAP Day Lift** | +10.3% higher sales | Increase inventory by 10% on SNAP days |
+| **Weekend Effect** | +32.7% higher sales | Increase weekend stock by 33%, staff by 30% |
+| **Sunday Peak** | +23.0% vs average | Peak staffing day |
+| **Forecast Accuracy** | 67.8% improvement over baseline | Reliable 28-day demand planning |
+| **Prediction Intervals** | 95% coverage | Safety stock calculations with confidence |
+| **Projected Annual Impact** | $650K – $1M | Inventory + staffing + waste reduction |
 
 ---
 
@@ -38,146 +45,160 @@ pip install -r requirements.txt
 
 ### 2. Run Analysis Pipeline
 ```bash
-python 01_data_preparation.py          # Data understanding
-python 02_feature_engineering.py       # Feature engineering
+python 01_data_preparation.py          # Data cleaning & quality assessment
+python 02_feature_engineering.py       # Feature engineering (leak-proof)
 python 03_exploratory_analysis.py      # Exploratory Data Analysis
-python 04_model_training.py            # Model training & tuning
-python 05_business_recommendations.py  # SHAP & business translation
+python 04_model_training.py            # Predictive modeling & validation
+python 05_business_recommendations.py  # Business insights & SHAP analysis
+python 06_sql_analytics.py             # SQL-based analytics & reporting
 ```
 
 ### 3. Launch Dashboard
 ```bash
-# Windows
-run_dashboard.bat
-
-# Linux/Mac
-bash run_dashboard.sh
+python -m streamlit run app/streamlit_app.py
 ```
-
 Dashboard opens at: **http://localhost:8501**
 
 ---
 
-## 📊 Dashboard Features
+## 📊 Interactive Dashboard (4 Pages)
 
-### 4 Interactive Pages:
-
-1. **Overview**: Key metrics, trends, store performance, weekly seasonality
-2. **Forecast Explorer**: Interactive 28-day forecasts with prediction intervals
-3. **Event Impact Analyzer**: SNAP, weekend, and event type analysis
-4. **Business Recommendations**: Inventory, promotions, staffing, risk management
+| Page | What It Shows |
+|------|---------------|
+| **🏠 Overview** | KPIs (19.2M total sales), daily trends, store performance rankings, weekly seasonality |
+| **🔮 Forecast Explorer** | 28-day forecasts per store-department with prediction intervals, accuracy metrics, residual analysis |
+| **🎯 Event Impact** | SNAP vs non-SNAP comparison, weekend vs weekday analysis, store-level impact breakdown |
+| **💼 Recommendations** | Inventory optimization tables, promotion timing, staffing schedules, risk scoring |
 
 ---
 
-## 🎓 Technical Highlights
+## 🔍 Analysis Methodology
 
-### Data Engineering
-- Processed **10.9M rows** with memory-optimized pipeline
-- SQLite database for efficient querying
-- Aggregated to store-department level for production readiness
+### Data Processing & Quality
+- Processed **10.9 million rows** across 4 California stores and 3 food departments
+- Addressed missing sell prices using forward/backward fill within store-item groups
+- Created a **SQLite database** for structured querying and SQL-based analysis
+- Aggregated to **22,956 store-department-day** records for efficient analysis
 
 ### Feature Engineering
-- **15 engineered features**: lags, rolling stats, calendar, events, prices
-- Domain-specific features (SNAP days, weekend flags, promotions)
-- Handled intermittent demand (67% of products have >50% zero-sales days)
+- **15 engineered features**: temporal (day-of-week, month, quarter), event flags (SNAP, weekend, holidays), price dynamics, and demand lags
+- Applied **leak-proof rolling statistics** using `.shift(1)` to prevent look-ahead bias in rolling mean/std calculations
+- Handled intermittent demand: 66.9% of products have >50% zero-sales days
 
-### Modeling
-- **Global XGBoost**: Single model learning across all store-departments
-- **Prophet**: Baseline comparison with seasonal decomposition
-- **SHAP Analysis**: Model explainability and feature importance
-- **Uncertainty Quantification**: 95% prediction intervals
+### SQL Analytics
+- Revenue concentration analysis with **window functions** (RANK, NTILE)
+- SNAP and weekend impact quantification using **CASE WHEN** aggregations
+- Monthly trend analysis with **growth rate calculations**
+- Store performance comparisons using **CTEs and subqueries**
+
+### Predictive Analytics
+- Built forecasting models validated with **3-fold walk-forward cross-validation**
+- Achieved **67.8% error reduction** over seasonal naive baseline (RMSE: 98.65 vs 306.13)
+- Computed **95% prediction intervals** for safety stock recommendations
+- Used **SHAP analysis** to identify and explain the top revenue drivers to stakeholders
 
 ### Business Translation
-- Quantified SNAP impact: +10.3% sales lift
-- Weekend staffing recommendations: +30% increase
-- Risk assessment: Identified high-risk departments
-- Financial projections: $650K-$1M annual impact
+- Translated analytical findings into **dollar-impact recommendations**
+- Quantified staffing needs by day-of-week (+30% weekend, -10% mid-week)
+- Identified **high-risk store-departments** with stockout probability scoring
+- Built recommendations for inventory, promotions, staffing, and risk mitigation
 
 ---
 
-## 📈 Model Performance
+## 📊 Forecast Performance
 
 | Model | RMSE | MAE | Improvement |
 |-------|------|-----|-------------|
-| Baseline (Seasonal Naive) | 306.13 | 187.85 | - |
-| Prophet | 126.76 | 93.16 | +58.6% |
-| **XGBoost (Global)** | **84.87** | **56.71** | **+72.3%** |
+| Baseline (Seasonal Naive) | 306.13 | 187.85 | — |
+| Prophet (12 models) | 126.76 | 93.16 | +58.6% |
+| **Tuned Forecasting Model** | **98.65** | **68.30** | **+67.8%** |
 
-### Top Features (SHAP Analysis)
-1. `sales_rolling_mean_7` - 7-day rolling average
-2. `sales_lag_28` - 28-day lag
-3. `sales_lag_7` - 7-day lag
-4. `day_of_week` - Weekly seasonality
-5. `snap_CA` - SNAP day indicator
+### Top Demand Drivers (SHAP Feature Importance)
+1. `sales_lag_7` — Last week's sales (36.2%)
+2. `sales_lag_28` — Last month's sales (35.9%)
+3. `sales_lag_14` — Two weeks ago (14.5%)
+4. `sales_rolling_mean_7` — 7-day trend (8.4%)
+5. `snap_CA` — SNAP benefit day (0.9%)
 
 ---
 
 ## 💼 Business Recommendations
 
-### Inventory Optimization
-- Maintain safety stock at +165 units above forecast
-- Increase SNAP day inventory by 10%
-- Increase weekend inventory by 33%
-- **Expected**: 10-15% reduction in holding costs
+### 📦 Inventory Optimization
+- Maintain safety stock at **+165 units** above forecast
+- Increase SNAP day inventory by **10%**
+- Increase weekend inventory by **33%**
+- **Expected**: $200K–$300K annual savings from reduced holding costs
 
-### Promotion Planning
-- Align promotions with SNAP cycles (first week of month)
-- Schedule major promotions for weekends
-- **Expected**: 5-8% increase in sales
+### 🎯 Promotion Planning
+- Align promotions with **SNAP cycles** (first week of month)
+- Schedule major promotions for **Saturday–Sunday**
+- Stack SNAP + weekend for **maximum lift**
+- **Expected**: 5–8% increase in sales capture
 
-### Staffing Strategy
-- Increase weekend staffing by 30%
-- Reduce mid-week staffing by 10%
-- **Expected**: 8-10% improvement in labor efficiency
+### 👥 Staffing Strategy
+| Day | Adjustment | Rationale |
+|-----|-----------|-----------|
+| Saturday | +30% | Peak sales day |
+| Sunday | +25% | Second-highest |
+| Friday | +10% | Pre-weekend pickup |
+| Tue–Wed | -10% | Lowest demand |
 
-### Risk Management
-- High-risk departments: CA_4-FOODS_1 (96.4% risk), CA_1-FOODS_1 (71.4%)
-- Implement daily monitoring for FOODS_3
+**Expected**: $200K–$300K annual labor efficiency gains
+
+### ⚠️ Risk Management
+- **High-risk**: CA_4–FOODS_1 (96.4% stockout probability)
+- **Monitor**: FOODS_3 across all stores (high variability)
 - **Expected**: Stockout rate reduction from 5% to <2%
 
 ---
 
 ## 🛠️ Tech Stack
 
-**Data Processing**: Python, Pandas, NumPy, SQLite  
-**Modeling**: XGBoost, Prophet, Scikit-learn  
-**Visualization**: Matplotlib, Seaborn, Plotly  
-**Explainability**: SHAP  
-**Dashboard**: Streamlit  
+| Layer | Technologies |
+|-------|-------------|
+| **Data Processing** | Python, Pandas, NumPy |
+| **SQL Analytics** | SQLite, SQL (window functions, CTEs, aggregations) |
+| **Predictive Analytics** | XGBoost, Prophet, Scikit-learn |
+| **Explainability** | SHAP |
+| **Visualization** | Plotly, Matplotlib, Seaborn |
+| **Dashboard** | Streamlit (deployed via GitHub CI/CD) |
 
 ---
 
-## 📊 Key Insights
+## 📁 Project Structure
 
-### Demand Patterns
-- **Sunday Peak**: +23.0% vs average day
-- **Weekend Effect**: +32.7% vs weekdays
-- **SNAP Days**: +10.3% sales lift
-- **Intermittent Demand**: 66.9% of products
-
-### Store Performance
-- **Top Store**: CA_3 (1,310 units/day)
-- **Most Volatile**: CA_3 (CV: 0.92)
-- **Highest Risk**: CA_4-FOODS_1
-
----
-
-## 📝 Documentation
-
-- **[PROJECT_COMPLETE.md](PROJECT_COMPLETE.md)**: Full project summary
-- **[HOW_TO_RUN.md](HOW_TO_RUN.md)**: Detailed execution guide
-- **[BUSINESS_RECOMMENDATIONS.md](outputs/BUSINESS_RECOMMENDATIONS.md)**: Business insights
+```
+├── 01_data_preparation.py          # Data loading, cleaning, quality checks
+├── 02_feature_engineering.py       # Feature engineering (leak-proof)
+├── 03_exploratory_analysis.py      # EDA with visualizations
+├── 04_model_training.py            # Forecasting, cross-validation, tuning
+├── 05_business_recommendations.py  # SHAP analysis, business insights
+├── 06_sql_analytics.py             # SQL queries on SQLite database
+├── app/
+│   └── streamlit_app.py            # 4-page interactive dashboard
+├── data/processed/
+│   ├── ca_foods_store_dept_agg.parquet  # Aggregated analytics dataset
+│   └── m5_data.db                       # SQLite database
+├── outputs/
+│   ├── models/                     # Trained models & metrics
+│   ├── plots/                      # Analysis visualizations
+│   ├── sql_results/                # SQL query outputs (CSV)
+│   └── BUSINESS_RECOMMENDATIONS.md
+└── requirements.txt
+```
 
 ---
 
 ## 🌟 Key Achievements
 
-✅ Complete ML pipeline (data → features → models → insights → dashboard)  
-✅ Production quality (error handling, caching, documentation)  
-✅ Business value ($650K-$1M annual impact quantified)  
-✅ Scalable architecture (global modeling approach)  
-✅ Explainable AI (SHAP analysis + prediction intervals)  
-✅ Interactive deployment (professional Streamlit dashboard)  
+✅ Analyzed **10.9M retail transactions** to uncover demand patterns  
+✅ Quantified **$650K–$1M annual savings** through data-driven recommendations  
+✅ Built **4-page interactive dashboard** with live forecasts and business insights  
+✅ Demonstrated **SQL proficiency** with window functions, CTEs, and aggregations  
+✅ Achieved **67.8% forecast improvement** with walk-forward cross-validation  
+✅ Delivered **stakeholder-ready reports** translating analytics into business actions  
 
+---
 
-**Built with**: Python, XGBoost, Prophet, Streamlit 🚀
+**Built with**: Python · SQL · Streamlit · SHAP 📊
