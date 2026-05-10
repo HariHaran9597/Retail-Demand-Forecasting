@@ -24,7 +24,7 @@ US retailers lose over **$300 billion annually** to inventory waste. This projec
 3. **SQL Analytics**: Revenue ranking (RANK), department tiers (NTILE), trend analysis (LAG), SNAP/weekend impact (CASE WHEN)
 4. **Predictive Analytics**: 28-day forecasts with 67.8% error reduction over baseline; 95% prediction intervals
 5. **Explainability**: SHAP analysis revealing top demand drivers (lag features = 86.6% importance)
-6. **Dashboard**: 4-page interactive Streamlit app deployed via GitHub integration
+6. **Dashboard**: 4-page interactive Streamlit app
 
 ## Results
 
@@ -32,7 +32,7 @@ US retailers lose over **$300 billion annually** to inventory waste. This projec
 |--------|-------|
 | Forecast Error Reduction | **67.8%** over baseline |
 | Prediction Interval Coverage | **95%** |
-| Annual Impact Estimate | **$650K – $1M** |
+| Business Translation | **Scenario-based inventory, staffing, and promotion recommendations** |
 | Dashboard Pages | 4 (Overview, Forecasts, Events, Recommendations) |
 
 ## Tech Stack
@@ -41,5 +41,5 @@ Python · SQL (SQLite) · Pandas · Streamlit · SHAP · Plotly · Scikit-learn
 ## Deliverables
 - ✅ 4-page interactive dashboard ([Live Link](https://retail-demand-forecasting-hariharan9597.streamlit.app/))
 - ✅ SQL analytics with 6 production-quality queries
-- ✅ Business recommendations document with dollar-impact projections
+- ✅ Business recommendations document with scenario-based planning guidance
 - ✅ 28-day demand forecasts with confidence intervals
