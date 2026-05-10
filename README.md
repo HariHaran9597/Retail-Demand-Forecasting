@@ -6,7 +6,7 @@
 [![Streamlit](https://img.shields.io/badge/Dashboard-Streamlit-red.svg)](https://streamlit.io/)
 [![Status](https://img.shields.io/badge/Status-Complete-success.svg)]()
 
-> **Analyzed 10.9M retail transactions to uncover demand patterns, quantify promotional impact, and deliver a 4-page interactive dashboard — projecting $650K–$1M in annual savings through optimized inventory, staffing, and promotions.**
+> **Analyzed 10.9M retail transactions to uncover demand patterns, quantify promotional impact, and deliver a 4-page interactive dashboard for inventory, staffing, and promotion planning.**
 
 🔗 **[Live Dashboard](https://retail-demand-forecasting-hariharan9597.streamlit.app/)** · 📄 **[Business Recommendations](outputs/BUSINESS_RECOMMENDATIONS.md)**
 
@@ -32,7 +32,7 @@ US retailers lose over **$300 billion annually** to inventory waste — overstoc
 | **Sunday Peak** | +23.0% vs average | Peak staffing day |
 | **Forecast Accuracy** | 67.8% improvement over baseline | Reliable 28-day demand planning |
 | **Prediction Intervals** | 95% coverage | Safety stock calculations with confidence |
-| **Projected Annual Impact** | $650K – $1M | Inventory + staffing + waste reduction |
+| **Business Translation** | Scenario-based recommendations | Inventory + staffing + waste reduction |
 
 ---
 
@@ -98,7 +98,7 @@ Dashboard opens at: **http://localhost:8501**
 - Used **SHAP analysis** to identify and explain the top revenue drivers to stakeholders
 
 ### Business Translation
-- Translated analytical findings into **dollar-impact recommendations**
+- Translated analytical findings into **scenario-based business recommendations**
 - Quantified staffing needs by day-of-week (+30% weekend, -10% mid-week)
 - Identified **high-risk store-departments** with stockout probability scoring
 - Built recommendations for inventory, promotions, staffing, and risk mitigation
@@ -128,13 +128,13 @@ Dashboard opens at: **http://localhost:8501**
 - Maintain safety stock at **+165 units** above forecast
 - Increase SNAP day inventory by **10%**
 - Increase weekend inventory by **33%**
-- **Expected**: $200K–$300K annual savings from reduced holding costs
+- **Scenario impact**: reduced holding costs through forecast-based replenishment planning
 
 ### 🎯 Promotion Planning
 - Align promotions with **SNAP cycles** (first week of month)
 - Schedule major promotions for **Saturday–Sunday**
 - Stack SNAP + weekend for **maximum lift**
-- **Expected**: 5–8% increase in sales capture
+- **Scenario impact**: higher sales capture during known demand peaks
 
 ### 👥 Staffing Strategy
 | Day | Adjustment | Rationale |
@@ -144,12 +144,12 @@ Dashboard opens at: **http://localhost:8501**
 | Friday | +10% | Pre-weekend pickup |
 | Tue–Wed | -10% | Lowest demand |
 
-**Expected**: $200K–$300K annual labor efficiency gains
+**Scenario impact**: improved labor planning by aligning staffing with weekly demand patterns
 
 ### ⚠️ Risk Management
 - **High-risk**: CA_4–FOODS_1 (96.4% stockout probability)
 - **Monitor**: FOODS_3 across all stores (high variability)
-- **Expected**: Stockout rate reduction from 5% to <2%
+- **Scenario impact**: lower stockout risk through high-variance department monitoring
 
 ---
 
@@ -162,7 +162,7 @@ Dashboard opens at: **http://localhost:8501**
 | **Predictive Analytics** | XGBoost, Prophet, Scikit-learn |
 | **Explainability** | SHAP |
 | **Visualization** | Plotly, Matplotlib, Seaborn |
-| **Dashboard** | Streamlit (deployed via GitHub CI/CD) |
+| **Dashboard** | Streamlit |
 
 ---
 
@@ -193,7 +193,7 @@ Dashboard opens at: **http://localhost:8501**
 ## 🌟 Key Achievements
 
 ✅ Analyzed **10.9M retail transactions** to uncover demand patterns  
-✅ Quantified **$650K–$1M annual savings** through data-driven recommendations  
+✅ Converted forecasting outputs into **scenario-based business recommendations**  
 ✅ Built **4-page interactive dashboard** with live forecasts and business insights  
 ✅ Demonstrated **SQL proficiency** with window functions, CTEs, and aggregations  
 ✅ Achieved **67.8% forecast improvement** with walk-forward cross-validation  
