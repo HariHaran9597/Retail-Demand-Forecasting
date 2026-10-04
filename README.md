@@ -205,12 +205,12 @@ Dashboard opens at: **http://localhost:8501**
 
 ## 🌟 Key Achievements
 
-✅ Analyzed **10.9M daily sales records** to uncover demand patterns  
-✅ Converted forecasting outputs into **scenario-based business recommendations**  
-✅ Built **4-page interactive dashboard** with historical predictions and business scenarios  
-✅ Demonstrated **SQL proficiency** with window functions, CTEs, and aggregations  
-✅ Recorded **67.8% holdout RMSE reduction** in an experiment with the evaluation limits described above  
-✅ Delivered **stakeholder-ready reports** translating analytics into business actions  
+- Analyzed **10.9M daily sales records** to uncover demand patterns.
+- Converted forecasting outputs into **scenario-based business recommendations**.
+- Built a **4-page interactive dashboard** with historical predictions and business scenarios.
+- Demonstrated **SQL proficiency** with window functions, CTEs, and aggregations.
+- Recorded **67.8% holdout RMSE reduction** in an experiment with the evaluation limits described above.
+- Produced reports translating historical analytics into proposed business actions.
 
 ---
 
