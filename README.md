@@ -1,12 +1,12 @@
 # 📊 Retail Demand Analytics & Forecasting
-## End-to-End Analytics: From 10.9M Transactions to Actionable Business Insights
+## End-to-End Analytics: From 10.9M Daily Sales Records to Demand Insights
 
 [![Python](https://img.shields.io/badge/Python-3.9+-blue.svg)](https://www.python.org/)
 [![SQL](https://img.shields.io/badge/SQL-SQLite-orange.svg)]()
 [![Streamlit](https://img.shields.io/badge/Dashboard-Streamlit-red.svg)](https://streamlit.io/)
 [![Status](https://img.shields.io/badge/Status-Complete-success.svg)]()
 
-> **Analyzed 10.9M retail transactions to uncover demand patterns, quantify promotional impact, and deliver a 4-page interactive dashboard for inventory, staffing, and promotion planning.**
+> **Analyzed 10.9M item-store-day sales records to explore demand patterns and deliver a 4-page dashboard with inventory, staffing, and promotion scenarios.**
 
 🔗 **[Live Dashboard](https://retail-demand-forecastingg.streamlit.app/)** · 📄 **[Business Recommendations](outputs/BUSINESS_RECOMMENDATIONS.md)**
 
@@ -205,11 +205,11 @@ Dashboard opens at: **http://localhost:8501**
 
 ## 🌟 Key Achievements
 
-✅ Analyzed **10.9M retail transactions** to uncover demand patterns  
+✅ Analyzed **10.9M daily sales records** to uncover demand patterns  
 ✅ Converted forecasting outputs into **scenario-based business recommendations**  
-✅ Built **4-page interactive dashboard** with live forecasts and business insights  
+✅ Built **4-page interactive dashboard** with historical predictions and business scenarios  
 ✅ Demonstrated **SQL proficiency** with window functions, CTEs, and aggregations  
-✅ Achieved **67.8% forecast improvement** with walk-forward cross-validation  
+✅ Recorded **67.8% holdout RMSE reduction** in an experiment with the evaluation limits described above  
 ✅ Delivered **stakeholder-ready reports** translating analytics into business actions  
 
 ---
