@@ -207,6 +207,30 @@ def predict_with_model(model, df, feature_cols):
     return df_pred
 
 
+def show_recorded_metrics():
+    """Display the saved experiment, without hard-coded or fabricated results."""
+    path = Path(__file__).parent.parent / 'outputs' / 'models' / 'metrics.json'
+    try:
+        metrics = json.loads(path.read_text(encoding='utf-8'))
+        result = metrics['models']['xgboost_tuned']
+        baseline = metrics['models']['baseline']['rmse']
+        cv = metrics['cross_validation']
+    except (OSError, ValueError, KeyError, TypeError):
+        st.warning('Recorded evaluation metrics are unavailable.')
+        return
+    reduction = (baseline - result['rmse']) / baseline * 100 if baseline else 0
+    col1, col2, col3, col4 = st.columns(4)
+    with col1:
+        st.metric('Method', 'XGBoost', 'Recorded experiment')
+    with col2:
+        st.metric('Recorded holdout RMSE', f"{result['rmse']:.2f}", f"-{reduction:.1f}% vs recorded baseline")
+    with col3:
+        st.metric('Recorded holdout MAE', f"{result['mae']:.2f}", 'units')
+    with col4:
+        st.metric('Recorded CV mean RMSE', f"{cv['mean_rmse']:.2f}", f"std {cv['std_rmse']:.2f}")
+    st.caption('Historical experiment metrics. Holdout lags use observed history; CV splits are row-wise, not shared calendar cutoffs. See README for evaluation limits. Residual bands are illustrative, not calibrated coverage guarantees.')
+
+
 # ─────────────────── MAIN APP ───────────────────
 
 def main():
@@ -252,7 +276,7 @@ def main():
 
 def show_overview(df, model):
     st.markdown('<h1 class="main-header">🏪 Retail Demand Forecasting</h1>', unsafe_allow_html=True)
-    st.markdown('<p class="sub-header">California Foods · Real-Time Analytics Dashboard</p>', unsafe_allow_html=True)
+    st.markdown('<p class="sub-header">California Foods · Historical Demand Analysis</p>', unsafe_allow_html=True)
 
     # KPI row
     col1, col2, col3, col4 = st.columns(4)
@@ -354,15 +378,7 @@ def show_overview(df, model):
     if model is not None:
         st.markdown("---")
         st.subheader("📊 Forecast Accuracy")
-        col1, col2, col3, col4 = st.columns(4)
-        with col1:
-            st.metric("Method", "Forecast", "Global")
-        with col2:
-            st.metric("RMSE", "84.87", "-72.3% vs baseline")
-        with col3:
-            st.metric("MAE", "56.71", "units")
-        with col4:
-            st.metric("Coverage", "95.8%", "prediction interval")
+        show_recorded_metrics()
 
 
 # ─────────────────── PAGE 2: FORECAST EXPLORER ───────────────────
@@ -624,15 +640,7 @@ def show_recommendations(df, model):
 
     # Model performance
     st.subheader("🎯 Forecast Performance Summary")
-    col1, col2, col3, col4 = st.columns(4)
-    with col1:
-        st.metric("Method", "Forecast", "Global")
-    with col2:
-        st.metric("RMSE", "84.87", "-72.3% vs baseline")
-    with col3:
-        st.metric("MAE", "56.71", "units")
-    with col4:
-        st.metric("Coverage", "95.8%", "prediction interval")
+    show_recorded_metrics()
 
     st.markdown("---")
 

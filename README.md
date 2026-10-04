@@ -8,7 +8,20 @@
 
 > **Analyzed 10.9M retail transactions to uncover demand patterns, quantify promotional impact, and deliver a 4-page interactive dashboard for inventory, staffing, and promotion planning.**
 
-🔗 **[Live Dashboard](https://retail-demand-forecasting-hariharan9597.streamlit.app/)** · 📄 **[Business Recommendations](outputs/BUSINESS_RECOMMENDATIONS.md)**
+🔗 **[Live Dashboard](https://retail-demand-forecastingg.streamlit.app/)** · 📄 **[Business Recommendations](outputs/BUSINESS_RECOMMENDATIONS.md)**
+
+**Status:** historical-data portfolio analysis on the public M5 dataset. Inventory and
+staffing recommendations are scenarios, not observed retailer outcomes. The dashboard's
+summary reads the recorded metrics in `outputs/models/metrics.json`.
+
+**Evaluation limits:** the saved holdout RMSE is 98.65; the saved three-fold mean RMSE is
+175.70 (standard deviation 129.14). These are different measurements. The current CV code
+splits rows after sorting by store, department, and date, rather than splitting all series
+by shared calendar cutoffs. Holdout features include observed lagged sales within the
+holdout period, so results are retrospective predictions with observed history, not an
+independent 28-day forecast made at one origin. The baseline's later horizon falls back
+to a training mean, so the reported improvement needs a matched-protocol re-evaluation.
+Residual-based bands are illustrative and have not been independently calibrated.
 
 ---
 
@@ -17,7 +30,7 @@
 US retailers lose over **$300 billion annually** to inventory waste — overstocking ties up capital, understocking loses revenue. This project analyzes Walmart's California Foods division to:
 
 - Quantify the impact of **SNAP benefits**, **weekends**, and **events** on demand
-- Build 28-day demand forecasts with 95% confidence intervals
+- Explore a 28-day historical holdout with illustrative prediction bands
 - Deliver actionable recommendations for **inventory, staffing, and promotions**
 - Enable store managers to make data-driven stocking decisions via an interactive dashboard
 
@@ -30,8 +43,8 @@ US retailers lose over **$300 billion annually** to inventory waste — overstoc
 | **SNAP Day Lift** | +10.3% higher sales | Increase inventory by 10% on SNAP days |
 | **Weekend Effect** | +32.7% higher sales | Increase weekend stock by 33%, staff by 30% |
 | **Sunday Peak** | +23.0% vs average | Peak staffing day |
-| **Forecast Accuracy** | 67.8% improvement over baseline | Reliable 28-day demand planning |
-| **Prediction Intervals** | 95% coverage | Safety stock calculations with confidence |
+| **Recorded holdout comparison** | 67.8% RMSE reduction in the recorded experiment | Re-evaluate with matched forecast protocols before operational use |
+| **Prediction bands** | Residual-based, nominal 95% | Illustrative; independently calibrated coverage is not established |
 | **Business Translation** | Scenario-based recommendations | Inventory + staffing + waste reduction |
 
 ---
@@ -92,7 +105,7 @@ Dashboard opens at: **http://localhost:8501**
 - Store performance comparisons using **CTEs and subqueries**
 
 ### Predictive Analytics
-- Built forecasting models validated with **3-fold walk-forward cross-validation**
+- Built forecasting models with a **3-fold row-wise TimeSeriesSplit experiment**; see the shared-calendar split limitation above
 - Achieved **67.8% error reduction** over seasonal naive baseline (RMSE: 98.65 vs 306.13)
 - Computed **95% prediction intervals** for safety stock recommendations
 - Used **SHAP analysis** to identify and explain the top revenue drivers to stakeholders
